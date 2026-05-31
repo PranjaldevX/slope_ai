@@ -9,7 +9,7 @@ dist/
 build/
 *.log
 
-
+# Test pages (local testing only)
 test-pages/
 
 # Environment variables
