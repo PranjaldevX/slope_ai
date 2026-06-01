@@ -42,3 +42,12 @@ accuracy-test/dist/
 # Personal tokens (IMPORTANT!)
 *.pat
 *_token.txt
+
+# Internal documentation (not for GitHub)
+DEMO_*.md
+HACKATHON_STATUS.md
+BONUS_ACHIEVEMENTS.md
+NAME_CHANGE_SUMMARY.md
+*_SUMMARY.md
+*_REFERENCE.md
+*_TROUBLESHOOTING.md
