@@ -168,7 +168,7 @@ function App() {
   return (
     <div className="glass-container">
       <header className="header">
-        <h1>🔍 Information Density Filter</h1>
+        <h1>🔍 Slop AI</h1>
         <p className="subtitle">Surface What Matters</p>
       </header>
 

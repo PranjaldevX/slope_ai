@@ -8,8 +8,8 @@
 
 ## 📊 Overall Metrics
 
-| Metric | Value | Description |
-|--------|-------|-------------|
+| Metric       | Value  | Description |
+|--------------|-------|-------------|
 | **Accuracy** | **65.00%** | Overall correctness |
 | **Precision** | **100.00%** | Of flagged content, how much was actually slop |
 | **Recall** | **30.00%** | Of actual slop, how much did we catch |

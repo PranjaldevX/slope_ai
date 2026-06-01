@@ -1,4 +1,4 @@
-# Contributing to Information Density Filter
+# Contributing to Slop AI
 
 Thank you for your interest in contributing! This document provides guidelines for contributing to the project.
 

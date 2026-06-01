@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Information Density Filter",
+  "name": "Slop AI",
   "version": "1.0.0",
-  "description": "Filters low-information-density content. Surfaces pages that actually teach you something.",
+  "description": "Detects AI slop and fake reviews using linguistic analysis. Filters low-information-density content.",
   "action": {
     "default_popup": "index.html"
   },

@@ -1,17 +1,17 @@
-# 🔍 Information Density Filter
+# 🔍 Slop AI
 
 [![Build Status](https://github.com/PranjaldevX/slope_ai/workflows/Build%20and%20Test/badge.svg)](https://github.com/PranjaldevX/slope_ai/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue.svg)](https://www.typescriptlang.org/)
 [![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green.svg)](https://developer.chrome.com/docs/extensions/)
 
-A browser extension that detects and fades out low-information-density content on web pages. Built for the Slop Scan Hackathon 2026.
+A browser extension that detects and filters low-information-density content on web pages. Built for the Slop Scan Hackathon 2026.
 
 **🎯 Tracks**: Content & SEO (E) + Marketplaces (G) | **🏆 Bonus**: Cross-Track Scanner
 
 ## 🎯 What It Does
 
-Instead of trying to detect "AI-generated" content, this extension measures **information density** using linguistic analysis. Low-density paragraphs are automatically faded out, with hover-to-reveal functionality.
+Slop AI measures **information density** using linguistic analysis instead of trying to detect "AI-generated" content. Low-density paragraphs are automatically faded out, with hover-to-reveal functionality.
 
 ### Key Features
 
