@@ -120,7 +120,14 @@ function App() {
       if (typeof chrome !== 'undefined' && chrome.tabs) {
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
         if (tab.id) {
-          chrome.tabs.sendMessage(tab.id, { action: 'scan' }, () => {
+          chrome.tabs.sendMessage(tab.id, { action: 'scan' }, (response) => {
+            // Check for errors (e.g., content script not loaded)
+            if (chrome.runtime.lastError) {
+              console.log('Content script not ready:', chrome.runtime.lastError.message);
+              setScanning(false);
+              return;
+            }
+            
             // After scanning, the content script updates storage, so we fetch it again
             chrome.storage.local.get([
               'slopCount', 'flaggedSnippets', 'scanType',
