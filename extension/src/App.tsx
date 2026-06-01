@@ -21,6 +21,14 @@ interface BreakdownStats {
   }>;
 }
 
+interface ReviewStats {
+  reviewCount: number;
+  suspiciousReviews: number;
+  reviewClusters: number;
+  avgSimilarity: number;
+  scanType?: 'content' | 'reviews';
+}
+
 function App() {
   const [slopCount, setSlopCount] = useState(0)
   const [scanning, setScanning] = useState(false)
@@ -28,21 +36,45 @@ function App() {
   const [snippets, setSnippets] = useState<Snippet[]>([])
   const [breakdownStats, setBreakdownStats] = useState<BreakdownStats | null>(null)
   const [expandedSnippet, setExpandedSnippet] = useState<number | null>(null)
+  const [reviewStats, setReviewStats] = useState<ReviewStats | null>(null)
 
   useEffect(() => {
     // Read stored count from last scan
     if (typeof chrome !== 'undefined' && chrome.storage) {
-      chrome.storage.local.get(['slopCount', 'lastScanUrl', 'flaggedSnippets'], (data) => {
+      chrome.storage.local.get([
+        'slopCount', 'lastScanUrl', 'flaggedSnippets', 'scanType',
+        'reviewCount', 'suspiciousReviews', 'reviewClusters', 'avgSimilarity', 'flaggedReviews'
+      ], (data) => {
         const anyData = data as any;
-        setSlopCount(anyData.slopCount || 0)
-        setLastUrl(anyData.lastScanUrl || '')
-        const snippetsData = anyData.flaggedSnippets || []
-        setSnippets(snippetsData)
+        const scanType = anyData.scanType || 'content';
         
-        // Calculate breakdown stats
-        if (snippetsData.length > 0) {
-          calculateBreakdownStats(snippetsData)
+        if (scanType === 'reviews') {
+          // Review scan data
+          setReviewStats({
+            reviewCount: anyData.reviewCount || 0,
+            suspiciousReviews: anyData.suspiciousReviews || 0,
+            reviewClusters: anyData.reviewClusters || 0,
+            avgSimilarity: anyData.avgSimilarity || 0,
+            scanType: 'reviews'
+          });
+          setSlopCount(anyData.suspiciousReviews || 0);
+          const reviewSnippets = anyData.flaggedReviews || [];
+          setSnippets(reviewSnippets);
+          if (reviewSnippets.length > 0) {
+            calculateBreakdownStats(reviewSnippets);
+          }
+        } else {
+          // Content scan data
+          setSlopCount(anyData.slopCount || 0);
+          const snippetsData = anyData.flaggedSnippets || [];
+          setSnippets(snippetsData);
+          if (snippetsData.length > 0) {
+            calculateBreakdownStats(snippetsData);
+          }
+          setReviewStats(null);
         }
+        
+        setLastUrl(anyData.lastScanUrl || '');
       })
     }
   }, [])
@@ -90,15 +122,38 @@ function App() {
         if (tab.id) {
           chrome.tabs.sendMessage(tab.id, { action: 'scan' }, () => {
             // After scanning, the content script updates storage, so we fetch it again
-            chrome.storage.local.get(['slopCount', 'flaggedSnippets'], (data) => {
+            chrome.storage.local.get([
+              'slopCount', 'flaggedSnippets', 'scanType',
+              'reviewCount', 'suspiciousReviews', 'reviewClusters', 'avgSimilarity', 'flaggedReviews'
+            ], (data) => {
                 const anyData = data as any;
-                setSlopCount(anyData.slopCount || 0)
-                const snippetsData = anyData.flaggedSnippets || []
-                setSnippets(snippetsData)
-                if (snippetsData.length > 0) {
-                  calculateBreakdownStats(snippetsData)
+                const scanType = anyData.scanType || 'content';
+                
+                if (scanType === 'reviews') {
+                  setReviewStats({
+                    reviewCount: anyData.reviewCount || 0,
+                    suspiciousReviews: anyData.suspiciousReviews || 0,
+                    reviewClusters: anyData.reviewClusters || 0,
+                    avgSimilarity: anyData.avgSimilarity || 0,
+                    scanType: 'reviews'
+                  });
+                  setSlopCount(anyData.suspiciousReviews || 0);
+                  const reviewSnippets = anyData.flaggedReviews || [];
+                  setSnippets(reviewSnippets);
+                  if (reviewSnippets.length > 0) {
+                    calculateBreakdownStats(reviewSnippets);
+                  }
+                } else {
+                  setSlopCount(anyData.slopCount || 0);
+                  const snippetsData = anyData.flaggedSnippets || [];
+                  setSnippets(snippetsData);
+                  if (snippetsData.length > 0) {
+                    calculateBreakdownStats(snippetsData);
+                  }
+                  setReviewStats(null);
                 }
-                setScanning(false)
+                
+                setScanning(false);
             });
           })
         }
@@ -136,6 +191,39 @@ function App() {
         >
           {scanning ? '⏳ Scanning...' : '⚡ Re-scan Current Page'}
         </button>
+
+        {reviewStats && reviewStats.scanType === 'reviews' && (
+          <div className="review-stats-section">
+            <div className="stats-title">🛒 Review Analysis</div>
+            <div className="stats-grid">
+              <div className="stat-item">
+                <div className="stat-value">{reviewStats.reviewCount}</div>
+                <div className="stat-label">Total Reviews</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-value" style={{ color: '#ef4444' }}>
+                  {reviewStats.suspiciousReviews}
+                </div>
+                <div className="stat-label">Suspicious</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-value">{reviewStats.reviewClusters}</div>
+                <div className="stat-label">Clusters</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-value">
+                  {(reviewStats.avgSimilarity * 100).toFixed(0)}%
+                </div>
+                <div className="stat-label">Avg Similarity</div>
+              </div>
+            </div>
+            {reviewStats.reviewClusters > 0 && (
+              <div className="cluster-warning">
+                ⚠️ {reviewStats.reviewClusters} suspicious review clusters detected
+              </div>
+            )}
+          </div>
+        )}
 
         {breakdownStats && slopCount > 0 && (
           <div className="breakdown-section">

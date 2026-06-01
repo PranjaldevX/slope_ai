@@ -623,3 +623,181 @@ export function analyzeText(
         breakdown: sortedBreakdown,
     };
 }
+
+/**
+ * ============================================================================
+ * REVIEW-SPECIFIC METRICS
+ * For detecting fake/low-quality reviews on marketplace sites
+ * ============================================================================
+ */
+
+/**
+ * Generic Praise Detection
+ * Detects overuse of generic positive words common in fake reviews
+ */
+const GENERIC_PRAISE = new Set([
+    'amazing', 'awesome', 'great', 'excellent', 'perfect',
+    'fantastic', 'wonderful', 'incredible', 'outstanding',
+    'love', 'loved', 'loving', 'best', 'worst',
+    'good', 'bad', 'nice', 'fine', 'okay'
+]);
+
+const GENERIC_PHRASES = [
+    'exceeded expectations',
+    'highly recommend',
+    'worth every penny',
+    'game changer',
+    'must have',
+    'life changing',
+    'best purchase ever',
+    'waste of money',
+    'total disappointment'
+];
+
+export function genericPraiseRatio(text: string): number {
+    const tokens = tokenize(text);
+    if (tokens.length === 0) return 0;
+    
+    let praiseCount = 0;
+    const lowerText = text.toLowerCase();
+    
+    // Count generic words
+    for (const token of tokens) {
+        if (GENERIC_PRAISE.has(token)) praiseCount++;
+    }
+    
+    // Count generic phrases (weight more heavily)
+    for (const phrase of GENERIC_PHRASES) {
+        if (lowerText.includes(phrase)) praiseCount += 3;
+    }
+    
+    return Math.min(1.0, praiseCount / tokens.length * 5);
+}
+
+/**
+ * Review Specificity Score
+ * Rewards reviews with specific product details and personal experience
+ */
+export function reviewSpecificityScore(text: string): number {
+    const words = tokenize(text);
+    if (words.length === 0) return 0;
+    
+    let specificCount = 0;
+    
+    // Product details (color, size, material, etc.)
+    const productDetails = text.match(
+        /\b(color|size|weight|dimension|material|texture|smell|taste|sound|fit|quality)\b/gi
+    );
+    specificCount += (productDetails?.length || 0) * 2;
+    
+    // Time references (usage duration)
+    const timeRefs = text.match(
+        /\b(day|week|month|year)s?\b|\b(after|for|within)\s+\d+/gi
+    );
+    specificCount += (timeRefs?.length || 0) * 1.5;
+    
+    // Comparative statements
+    const comparisons = text.match(
+        /\b(better than|worse than|compared to|similar to|different from)\b/gi
+    );
+    specificCount += (comparisons?.length || 0) * 2;
+    
+    // Personal experience markers
+    const experience = text.match(/\b(I|my|me|we|our|us)\b/gi);
+    specificCount += Math.min((experience?.length || 0) / 3, 3);
+    
+    // Specific numbers (measurements, prices, quantities)
+    const numbers = text.match(/\d+(\.\d+)?\s*(inch|cm|lb|kg|oz|ml|%)/gi);
+    specificCount += (numbers?.length || 0) * 2;
+    
+    return Math.min(1.0, specificCount / words.length * 8);
+}
+
+/**
+ * Review Length Score
+ * Detects suspiciously short/long reviews or reviews matching bot patterns
+ */
+export function reviewLengthScore(text: string, avgLength: number): number {
+    const length = text.length;
+    
+    // Suspiciously short (< 50 chars)
+    if (length < 50) return 0.8;
+    
+    // Suspiciously long (> 1000 chars) - rare for fake reviews
+    if (length > 1000) return 0.3;
+    
+    // Too close to average (bot farms target specific lengths)
+    const deviation = Math.abs(length - avgLength);
+    if (deviation < 20 && avgLength > 0) return 0.4;
+    
+    return 0.0; // Normal length
+}
+
+/**
+ * Review Analysis Wrapper
+ * Combines base analysis with review-specific metrics
+ */
+export function analyzeReviewText(
+    text: string,
+    previousText: string,
+    avgLength: number,
+    previousConcepts: Set<string>
+): AnalysisResult {
+    // Use existing analyzeText as base
+    const baseResult = analyzeText(text, previousText, '', previousConcepts);
+    
+    // Add review-specific metrics
+    const genericPraise = genericPraiseRatio(text);
+    const reviewSpecificity = reviewSpecificityScore(text);
+    const lengthScore = reviewLengthScore(text, avgLength);
+    
+    // Adjust scoring for reviews
+    const reviewContributions: ScoreBreakdown[] = [...baseResult.breakdown];
+    
+    // Generic praise penalty
+    if (genericPraise > 0.3) {
+        reviewContributions.push({
+            component: 'Generic praise overload',
+            contribution: 0.30,
+            percentage: Math.round(genericPraise * 100),
+            description: `${Math.round(genericPraise * 100)}% generic praise words`
+        });
+    }
+    
+    // Lack of specificity penalty
+    if (reviewSpecificity < 0.2) {
+        reviewContributions.push({
+            component: 'Lacks specific details',
+            contribution: 0.25,
+            percentage: Math.round((1 - reviewSpecificity) * 100),
+            description: 'No specific product details or personal experience'
+        });
+    }
+    
+    // Length anomaly penalty
+    if (lengthScore > 0.5) {
+        reviewContributions.push({
+            component: 'Suspicious review length',
+            contribution: lengthScore * 0.2,
+            percentage: Math.round(lengthScore * 100),
+            description: 'Review length matches bot patterns'
+        });
+    }
+    
+    // Recalculate score with review metrics
+    let reviewScore = baseResult.slopScore;
+    reviewContributions.forEach(c => {
+        if (c.contribution > 0) {
+            reviewScore += c.contribution * 0.8; // Slightly lower weight
+        }
+    });
+    reviewScore = Math.min(1.0, Math.max(0.0, reviewScore));
+    
+    return {
+        ...baseResult,
+        slopScore: reviewScore,
+        breakdown: reviewContributions.sort((a, b) => 
+            Math.abs(b.contribution) - Math.abs(a.contribution)
+        )
+    };
+}

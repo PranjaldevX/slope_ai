@@ -1,0 +1,25 @@
+{
+  "name": "accuracy-test",
+  "version": "1.0.0",
+  "description": "Accuracy testing for Information Density Filter - The Bake-Off bonus",
+  "type": "module",
+  "main": "test-runner.ts",
+  "scripts": {
+    "test": "node --loader ts-node/esm test-runner.ts",
+    "build": "tsc test-runner.ts",
+    "create-dataset": "echo 'Create dataset/test-dataset.json with your labeled samples'"
+  },
+  "keywords": [
+    "accuracy",
+    "testing",
+    "metrics",
+    "hackathon"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.5.0"
+  }
+}

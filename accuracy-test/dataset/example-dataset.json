@@ -1,0 +1,44 @@
+[
+  {
+    "id": "slop-001",
+    "text": "In today's fast-paced digital landscape, it is crucial to understand that leveraging innovative solutions can significantly enhance your productivity. This comprehensive approach helps organizations streamline their workflows and optimize performance. Furthermore, implementing cutting-edge technologies enables teams to achieve unprecedented results.",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "ChatGPT generic business content"
+  },
+  {
+    "id": "slop-002",
+    "text": "The tapestry of modern life is truly remarkable. As we delve into the multifaceted realm of personal development, it becomes clear that fostering a holistic approach is paramount. This nuanced perspective underscores the importance of embracing innovative paradigms.",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "ChatGPT-ism heavy content"
+  },
+  {
+    "id": "slop-003",
+    "text": "Amazing product! Highly recommend! Best purchase ever! Exceeded all my expectations! Five stars!",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "Fake review - generic praise"
+  },
+  {
+    "id": "quality-001",
+    "text": "The React useEffect hook runs after every render by default. To optimize performance, pass a dependency array as the second argument: useEffect(() => { fetchData() }, [userId]). This ensures the effect only runs when userId changes. According to the React docs, omitting the dependency array causes the effect to run on every render, which can lead to infinite loops if you're updating state inside the effect.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Technical documentation"
+  },
+  {
+    "id": "quality-002",
+    "text": "I bought this coffee maker 3 months ago. The brew temperature is consistently 195°F, which is perfect for medium roast beans. The carafe keeps coffee hot for about 2 hours without a warming plate. Build quality is solid - all stainless steel construction. My only complaint is the water reservoir is difficult to remove for cleaning. Overall, much better than my previous Mr. Coffee model.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Detailed product review"
+  },
+  {
+    "id": "quality-003",
+    "text": "The study analyzed 1,247 patients over 18 months. Results showed a 34% reduction in symptoms (p < 0.001) compared to placebo. Side effects were minimal, with only 3% of participants reporting mild nausea. Dr. Smith noted that 'these findings suggest a promising new treatment option' (Smith et al., 2024).",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Scientific article"
+  }
+]

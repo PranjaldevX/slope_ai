@@ -1,0 +1,142 @@
+[
+  {
+    "id": "slop-001",
+    "text": "In today's fast-paced digital landscape, it is crucial to understand that leveraging innovative solutions can significantly enhance your productivity. This comprehensive approach helps organizations streamline their workflows and optimize performance. Furthermore, implementing cutting-edge technologies enables teams to achieve unprecedented results.",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "ChatGPT generic business"
+  },
+  {
+    "id": "slop-002",
+    "text": "The tapestry of modern life is truly remarkable. As we delve into the multifaceted realm of personal development, it becomes clear that fostering a holistic approach is paramount. This nuanced perspective underscores the importance of embracing innovative paradigms that empower individuals to navigate the complexities of contemporary existence.",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "ChatGPT-ism heavy"
+  },
+  {
+    "id": "slop-003",
+    "text": "Amazing product! Highly recommend! Best purchase ever! Exceeded all my expectations! Five stars! Everyone should buy this! Absolutely incredible! Game changer! Worth every penny!",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "Fake review"
+  },
+  {
+    "id": "slop-004",
+    "text": "It is important to note that effective communication plays a vital role in organizational success. By facilitating seamless collaboration and ensuring alignment across teams, companies can leverage their collective expertise to drive innovation and achieve strategic objectives in an increasingly competitive marketplace.",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "Corporate buzzwords"
+  },
+  {
+    "id": "slop-005",
+    "text": "Meditation is a powerful tool for personal growth. It helps you find inner peace and balance. By practicing regularly, you can reduce stress and improve your overall wellbeing. This ancient practice has been used for centuries to promote mindfulness and spiritual development.",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "Generic wellness"
+  },
+  {
+    "id": "slop-006",
+    "text": "Social media marketing is essential for modern businesses. It allows you to reach your target audience and build brand awareness. By creating engaging content and fostering meaningful connections, you can drive growth and achieve your marketing goals.",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "SEO content farm"
+  },
+  {
+    "id": "slop-007",
+    "text": "This product is absolutely fantastic! I love it so much! Best thing I ever bought! Highly recommend to everyone! Amazing quality! Exceeded expectations! Five stars all the way! Perfect in every way!",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "Bot review"
+  },
+  {
+    "id": "slop-008",
+    "text": "The comprehensive framework enables organizations to optimize their operational efficiency through innovative methodologies. By leveraging cutting-edge technologies and fostering a culture of continuous improvement, businesses can achieve sustainable competitive advantages in dynamic market environments.",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "Business jargon"
+  },
+  {
+    "id": "slop-009",
+    "text": "Productivity is key to success. By implementing effective strategies and maintaining focus, you can accomplish more in less time. This holistic approach to time management will help you achieve your goals and maximize your potential.",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "Generic advice"
+  },
+  {
+    "id": "slop-010",
+    "text": "Great product! Works as described! Very happy with purchase! Would buy again! Excellent quality! Fast shipping! Highly satisfied! Recommend to friends! Five stars!",
+    "label": "slop",
+    "category": "ai-generated",
+    "source": "Generic review"
+  },
+  {
+    "id": "quality-001",
+    "text": "The React useEffect hook runs after every render by default. To optimize performance, pass a dependency array as the second argument: useEffect(() => { fetchData() }, [userId]). This ensures the effect only runs when userId changes. According to the React docs, omitting the dependency array causes the effect to run on every render, which can lead to infinite loops if you're updating state inside the effect.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Technical documentation"
+  },
+  {
+    "id": "quality-002",
+    "text": "I bought this coffee maker 3 months ago. The brew temperature is consistently 195°F, which is perfect for medium roast beans. The carafe keeps coffee hot for about 2 hours without a warming plate. Build quality is solid - all stainless steel construction. My only complaint is the water reservoir is difficult to remove for cleaning. Overall, much better than my previous Mr. Coffee model.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Detailed review"
+  },
+  {
+    "id": "quality-003",
+    "text": "The study analyzed 1,247 patients over 18 months. Results showed a 34% reduction in symptoms (p < 0.001) compared to placebo. Side effects were minimal, with only 3% of participants reporting mild nausea. Dr. Smith noted that 'these findings suggest a promising new treatment option' (Smith et al., 2024).",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Scientific article"
+  },
+  {
+    "id": "quality-004",
+    "text": "To implement binary search in Python, first ensure your array is sorted. The algorithm works by repeatedly dividing the search interval in half. If the target value is less than the middle element, search the left half; otherwise, search the right. Time complexity is O(log n). Here's the code: def binary_search(arr, target): left, right = 0, len(arr) - 1; while left <= right: mid = (left + right) // 2; if arr[mid] == target: return mid; elif arr[mid] < target: left = mid + 1; else: right = mid - 1; return -1",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Programming tutorial"
+  },
+  {
+    "id": "quality-005",
+    "text": "The Federal Reserve raised interest rates by 0.25% yesterday, bringing the target range to 5.25-5.50%. This marks the 11th rate increase since March 2022. Fed Chair Jerome Powell stated that 'inflation remains too high' and that 'we are prepared to raise rates further if appropriate.' The S&P 500 fell 1.2% following the announcement.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "News article"
+  },
+  {
+    "id": "quality-006",
+    "text": "I've been using this standing desk for 6 months. The electric motor is quiet (measured at 45dB) and raises the desk from 28 to 48 inches in about 15 seconds. The desktop is 60x30 inches, plenty of room for dual monitors. Assembly took 45 minutes with two people. The memory presets are convenient - I switch between sitting (30 inches) and standing (42 inches) throughout the day. Only issue is the cable management tray is flimsy plastic.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Product review"
+  },
+  {
+    "id": "quality-007",
+    "text": "The algorithm uses dynamic programming to solve the knapsack problem. We create a 2D array dp[i][w] where i represents items considered and w represents weight capacity. For each item, we decide whether to include it based on max(dp[i-1][w], dp[i-1][w-weight[i]] + value[i]). This approach has O(nW) time complexity and O(nW) space complexity, where n is the number of items and W is the knapsack capacity.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Algorithm explanation"
+  },
+  {
+    "id": "quality-008",
+    "text": "The restaurant opened in 1987 and has been family-owned ever since. I tried the chicken parmesan ($18.95) - the breading was crispy, not soggy, and the marinara sauce had a nice balance of garlic and basil. Portion size was generous, easily enough for two meals. Service was attentive without being intrusive. The dining room seats about 40 people and gets crowded on weekends. Parking is limited to street parking only.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Restaurant review"
+  },
+  {
+    "id": "quality-009",
+    "text": "According to the 2023 Stack Overflow survey, JavaScript remains the most commonly used programming language at 63.61%, followed by HTML/CSS (52.97%) and Python (49.28%). TypeScript usage has grown from 34.83% in 2020 to 38.87% in 2023. The survey included responses from 89,184 developers across 185 countries.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Survey data"
+  },
+  {
+    "id": "quality-010",
+    "text": "The experiment tested three conditions: control (n=45), treatment A (n=47), and treatment B (n=43). ANOVA results showed significant differences between groups (F(2,132)=8.42, p<0.001). Post-hoc Tukey tests revealed that treatment A differed significantly from control (p=0.002) but treatment B did not (p=0.18). Effect size (Cohen's d) for treatment A was 0.67, indicating a medium-to-large effect.",
+    "label": "quality",
+    "category": "human-written",
+    "source": "Research paper"
+  }
+]

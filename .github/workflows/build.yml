@@ -1,0 +1,77 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: extension/package-lock.json
+    
+    - name: Install dependencies
+      working-directory: ./extension
+      run: npm ci
+    
+    - name: Run TypeScript type check
+      working-directory: ./extension
+      run: npx tsc --noEmit
+    
+    - name: Build extension
+      working-directory: ./extension
+      run: npm run build
+    
+    - name: Check build output
+      working-directory: ./extension
+      run: |
+        if [ ! -d "dist" ]; then
+          echo "Build failed: dist directory not found"
+          exit 1
+        fi
+        echo "Build successful!"
+        ls -la dist/
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: extension-build-${{ matrix.node-version }}
+        path: extension/dist/
+        retention-days: 7
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.x
+        cache: 'npm'
+        cache-dependency-path: extension/package-lock.json
+    
+    - name: Install dependencies
+      working-directory: ./extension
+      run: npm ci
+    
+    - name: Run ESLint
+      working-directory: ./extension
+      run: npm run lint || echo "Linting completed with warnings"

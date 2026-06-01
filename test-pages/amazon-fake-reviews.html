@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Reviews - Test Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 20px auto; padding: 20px; }
+        h1 { color: #232f3e; }
+        .review { border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .review-header { font-weight: bold; margin-bottom: 10px; }
+        .review-body { line-height: 1.6; }
+        .fake { background: #fff5f5; }
+        .real { background: #f0f9ff; }
+    </style>
+</head>
+<body>
+    <h1>Customer Reviews</h1>
+    <p>4.2 out of 5 stars - 127 ratings</p>
+
+    <!-- FAKE REVIEW 1 - Generic praise -->
+    <div class="review fake" data-hook="review">
+        <div class="review-header">⭐⭐⭐⭐⭐ Amazing product!</div>
+        <div class="review-body" data-hook="review-body">
+            This product is absolutely amazing and exceeded all my expectations! It's fantastic and wonderful. Highly recommend to everyone. Best purchase ever!
+        </div>
+    </div>
+
+    <!-- FAKE REVIEW 2 - Similar to #1 -->
+    <div class="review fake" data-hook="review">
+        <div class="review-header">⭐⭐⭐⭐⭐ Excellent product!</div>
+        <div class="review-body" data-hook="review-body">
+            This product is truly excellent and surpassed all my expectations! It's incredible and outstanding. Highly recommend to anyone. Best buy ever!
+        </div>
+    </div>
+
+    <!-- FAKE REVIEW 3 - Similar to #1 and #2 (CLUSTER) -->
+    <div class="review fake" data-hook="review">
+        <div class="review-header">⭐⭐⭐⭐⭐ Perfect product!</div>
+        <div class="review-body" data-hook="review-body">
+            This product is absolutely perfect and exceeded my expectations! It's wonderful and fantastic. Highly recommend to everybody. Best purchase!
+        </div>
+    </div>
+
+    <!-- REAL REVIEW 1 - Specific details -->
+    <div class="review real" data-hook="review">
+        <div class="review-header">⭐⭐⭐⭐ Good quality, fits well</div>
+        <div class="review-body" data-hook="review-body">
+            I bought this in blue, size medium, and it fits perfectly. The material feels durable and the stitching is solid. I've been using it for 3 weeks now and it's holding up well. The only minor issue is that the zipper is a bit stiff, but it's getting better with use. For the price, this is a great value.
+        </div>
+    </div>
+
+    <!-- FAKE REVIEW 4 - Too short -->
+    <div class="review fake" data-hook="review">
+        <div class="review-header">⭐⭐⭐⭐⭐ Great!</div>
+        <div class="review-body" data-hook="review-body">
+            Love it! Amazing quality. Highly recommend!
+        </div>
+    </div>
+
+    <!-- REAL REVIEW 2 - Personal experience -->
+    <div class="review real" data-hook="review">
+        <div class="review-header">⭐⭐⭐⭐ Works as described</div>
+        <div class="review-body" data-hook="review-body">
+            I purchased this to replace my old one that broke after 2 years. This new model is lighter and easier to handle. Setup took about 10 minutes following the instructions. My only complaint is that it's louder than my previous model, but the performance is better. I use it daily and it's been reliable so far.
+        </div>
+    </div>
+
+    <!-- FAKE REVIEW 5 - Generic negative -->
+    <div class="review fake" data-hook="review">
+        <div class="review-header">⭐ Terrible product</div>
+        <div class="review-body" data-hook="review-body">
+            This is absolutely terrible and a complete waste of money. Total disappointment. Do not buy this product. Worst purchase ever!
+        </div>
+    </div>
+
+    <!-- REAL REVIEW 3 - Balanced with specifics -->
+    <div class="review real" data-hook="review">
+        <div class="review-header">⭐⭐⭐ Decent but has issues</div>
+        <div class="review-body" data-hook="review-body">
+            The product arrived on time and packaging was good. Quality is okay for the price point. However, I noticed the color is slightly different from the photos - more of a navy blue than royal blue. Also, after washing it once, there was some minor shrinkage (about half an inch). If you're between sizes, I'd recommend sizing up. Overall it's functional but not perfect.
+        </div>
+    </div>
+
+    <!-- REAL REVIEW 4 - Technical details -->
+    <div class="review real" data-hook="review">
+        <div class="review-header">⭐⭐⭐⭐⭐ Excellent for my needs</div>
+        <div class="review-body" data-hook="review-body">
+            I needed something compatible with my existing setup and this works perfectly. The dimensions (12" x 8" x 3") fit exactly where I needed it. Power consumption is low at 15W, which is better than similar products I looked at. The build quality feels solid - no flex or creaking. Installation was straightforward with the included mounting hardware. Been using it for a month with no issues.
+        </div>
+    </div>
+
+    <!-- FAKE REVIEW 6 - Vague claims -->
+    <div class="review fake" data-hook="review">
+        <div class="review-header">⭐⭐⭐⭐⭐ Life changing!</div>
+        <div class="review-body" data-hook="review-body">
+            This product has completely changed my life! It's innovative and cutting-edge. The quality is world-class and the design is state-of-the-art. Everyone should buy this amazing product!
+        </div>
+    </div>
+
+</body>
+</html>

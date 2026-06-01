@@ -4,13 +4,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Build outputs
-dist/
+# Build outputs (keep extension/dist for GitHub releases)
 build/
 *.log
-
-# Test pages (local testing only)
-test-pages/
 
 # Environment variables
 .env
@@ -29,8 +25,11 @@ test-pages/
 Thumbs.db
 
 # Extension specific
-extension/dist/
 extension/node_modules/
+
+# Accuracy test
+accuracy-test/node_modules/
+accuracy-test/dist/
 
 # WASM build artifacts
 *.o
@@ -39,3 +38,7 @@ extension/node_modules/
 # Temporary files
 *.tmp
 *.temp
+
+# Personal tokens (IMPORTANT!)
+*.pat
+*_token.txt

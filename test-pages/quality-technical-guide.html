@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search: Implementation and Analysis</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+        }
+        h1, h2 {
+            color: #4ec9b0;
+        }
+        code {
+            background-color: #2d2d2d;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ce9178;
+        }
+        pre {
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 3px solid #4ec9b0;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+            color: #d4d4d4;
+        }
+        .complexity {
+            background-color: #264f78;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Binary Search: Implementation and Analysis</h1>
+    
+    <p>Binary search is a divide-and-conquer algorithm that finds a target value in a sorted array. It runs in O(log n) time by repeatedly halving the search space.</p>
+    
+    <h2>How It Works</h2>
+    
+    <p>The algorithm maintains two pointers: <code>left</code> at index 0 and <code>right</code> at the last index. Each iteration:</p>
+    
+    <ol>
+        <li>Calculate <code>mid = (left + right) // 2</code></li>
+        <li>If <code>arr[mid] == target</code>, return mid</li>
+        <li>If <code>arr[mid] < target</code>, search right half: <code>left = mid + 1</code></li>
+        <li>If <code>arr[mid] > target</code>, search left half: <code>right = mid - 1</code></li>
+    </ol>
+    
+    <h2>Python Implementation</h2>
+    
+    <pre><code>def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return -1  # Not found
+
+# Example usage
+arr = [1, 3, 5, 7, 9, 11, 13, 15]
+result = binary_search(arr, 7)
+print(f"Found at index: {result}")  # Output: Found at index: 3</code></pre>
+    
+    <h2>Time Complexity Analysis</h2>
+    
+    <div class="complexity">
+        <p><strong>Best case:</strong> O(1) - target is at the middle</p>
+        <p><strong>Average case:</strong> O(log n) - target requires multiple comparisons</p>
+        <p><strong>Worst case:</strong> O(log n) - target is at an end or not present</p>
+    </div>
+    
+    <p>For an array of 1,000,000 elements, binary search requires at most 20 comparisons (log₂(1,000,000) ≈ 19.93). Linear search would require up to 1,000,000 comparisons.</p>
+    
+    <h2>Space Complexity</h2>
+    
+    <p>The iterative version uses O(1) space. A recursive version would use O(log n) space for the call stack.</p>
+    
+    <h2>Recursive Implementation</h2>
+    
+    <pre><code>def binary_search_recursive(arr, target, left, right):
+    if left > right:
+        return -1
+    
+    mid = (left + right) // 2
+    
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] < target:
+        return binary_search_recursive(arr, target, mid + 1, right)
+    else:
+        return binary_search_recursive(arr, target, left, mid - 1)
+
+# Example usage
+arr = [2, 4, 6, 8, 10, 12, 14]
+result = binary_search_recursive(arr, 10, 0, len(arr) - 1)
+print(f"Found at index: {result}")  # Output: Found at index: 4</code></pre>
+    
+    <h2>Common Pitfalls</h2>
+    
+    <p><strong>Integer overflow:</strong> In languages like C++ or Java, <code>(left + right) / 2</code> can overflow. Use <code>left + (right - left) / 2</code> instead.</p>
+    
+    <p><strong>Off-by-one errors:</strong> Ensure loop condition is <code>left <= right</code> (not <code>left < right</code>) and updates are <code>mid + 1</code> and <code>mid - 1</code> (not <code>mid</code>).</p>
+    
+    <p><strong>Unsorted arrays:</strong> Binary search only works on sorted arrays. Sort first with O(n log n) algorithm if needed.</p>
+    
+    <h2>Variations</h2>
+    
+    <p><strong>Find first occurrence:</strong> When <code>arr[mid] == target</code>, continue searching left: <code>right = mid - 1</code>. Track the last found index.</p>
+    
+    <p><strong>Find insertion point:</strong> Return <code>left</code> when loop exits. This gives the index where target should be inserted to maintain sorted order.</p>
+    
+    <pre><code>def find_insertion_point(arr, target):
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return left  # Insertion point</code></pre>
+    
+    <h2>When to Use</h2>
+    
+    <p>Binary search is optimal when:</p>
+    <ul>
+        <li>Array is sorted (or can be sorted once and searched many times)</li>
+        <li>Random access is O(1) (arrays, not linked lists)</li>
+        <li>Dataset is large (n > 100)</li>
+    </ul>
+    
+    <p>For small datasets (n < 10), linear search may be faster due to lower constant factors.</p>
+</body>
+</html>
