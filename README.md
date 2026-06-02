@@ -32,8 +32,8 @@ Slop AI measures **information density** using linguistic analysis instead of tr
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/information-density-filter.git
-cd information-density-filter
+git clone https://github.com/PranjaldevX/slope_ai.git
+cd slope_ai
 ```
 
 2. Install dependencies:
@@ -59,7 +59,6 @@ Open any of the test pages in `test-pages/` directory:
 
 **AI-Generated Content (Should Flag)**:
 - `ai-generated-productivity.html` - Generic productivity advice
-- `ai-generated-meditation.html` - Vague meditation content
 - `ai-generated-social-media.html` - Buzzword-heavy marketing
 
 **Quality Content (Should NOT Flag)**:
@@ -175,30 +174,54 @@ Open any of the test pages in `test-pages/` directory:
 ## 📁 Project Structure
 
 ```
-information-density-filter/
-├── engine/                      # Original C++ WASM engine (not used in MVP)
-│   ├── slop_analyzer.cpp
-│   ├── slop_analyzer.js
-│   └── slop_analyzer.wasm
-├── extension/                   # Main extension code
+
+
+slop_ai/
+│
+├── .github/
+│   └── workflows/
+│       └── build.yml                    # CI/CD pipeline for automated builds
+│
+├── extension/                           # Main Chrome extension code
 │   ├── src/
-│   │   ├── analyzer.ts         # Core detection engine
-│   │   ├── content.ts          # Content script (page scanning)
-│   │   ├── background.ts       # Background service worker
-│   │   ├── App.tsx             # Popup dashboard UI
-│   │   ├── App.css             # Popup styles
-│   │   └── main.tsx            # Popup entry point
+│   │   ├── analyzer.ts                  # Core detection engine (7 metrics)
+│   │   ├── content.ts                   # Content script (page scanning)
+│   │   ├── background.ts                # Background service worker
+│   │   ├── App.tsx                      # Popup dashboard UI
+│   │   ├── App.css                      # Popup styles
+│   │   ├── main.tsx                     # Popup entry point
+│   │   └── index.css                    # Global styles
+│   │
 │   ├── public/
-│   │   └── engine/             # WASM files (for future use)
-│   ├── package.json
-│   ├── vite.config.ts
-│   └── manifest.json           # Extension manifest
-├── test-pages/                  # Test HTML files
-│   ├── ai-generated-*.html     # Should flag
-│   └── quality-*.html          # Should NOT flag
-├── HACKATHON_READY.md          # Feature documentation
-├── QUICK_START.md              # Setup guide
-└── README.md                   # This file
+│   │   ├── favicon.svg                  # Extension icon
+│   │   └── icons.svg                    # UI icons
+│   │
+│   ├── dist/                            # Build output (generated)
+│   ├── package.json                     # Dependencies
+│   ├── vite.config.ts                   # Build configuration
+│   ├── tsconfig.json                    # TypeScript config
+│   └── manifest.json                    # Extension manifest
+│
+├── accuracy-test/                       # Accuracy testing infrastructure
+│   ├── dataset/
+│   │   ├── test-dataset.json            # 20 test samples (10 slop, 10 quality)
+│   │   └── example-dataset.json         # Dataset format example
+│   │
+│   ├── test-runner.ts                   # Automated test runner
+│   ├── package.json                     # Test dependencies
+│   ├── tsconfig.json                    # TypeScript config
+│   ├── ACCURACY_METRICS.md              # Metrics explanation
+│   └── RESULTS_SUMMARY.md               # Test results (65% accuracy, 100% precision)
+│
+├── test-pages/                          # Test HTML files for manual testing
+│   ├── ai-generated-*.html              # Slop examples (should flag)
+│   ├── quality-*.html                   # Quality content (should NOT flag)
+│   ├── amazon-fake-reviews.html         # Marketplace slop test
+│   └── README.md                        # Test page documentation
+│
+├── .gitignore                           # Git ignore rules
+├── README.md                            # Main project documentation
+└── CONTRIBUTING.md                      # Contribution guidelines
 ```
 
 ## 🧪 Accuracy Testing
@@ -272,18 +295,6 @@ Unlike AI detectors that look for perplexity or try to guess if content is AI-ge
 - Moves beyond "AI detection" to "information quality"
 - Works on any content type (blog posts, reviews, documentation)
 
-## 📈 Future Enhancements
-
-- [ ] Relationship-based information gain (track concept connections)
-- [ ] Customizable thresholds per website
-- [ ] Whitelist/blacklist functionality
-- [ ] Export analysis reports
-- [ ] Browser compatibility (Firefox, Edge)
-- [ ] Machine learning integration for improved accuracy
-- [ ] Q&A section analysis for marketplaces
-- [ ] Seller/reviewer history tracking
-- [ ] Multi-language support
-
 ## 🤝 Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
@@ -312,20 +323,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 6. **Comprehensive Testing** - 7 test pages covering different content types
 7. **Review Clustering** - Detects bot-generated review patterns
 
-### Hackathon Alignment
-
-**Track E (Content & SEO)**: 90% coverage
-- ✅ Detect AI-generated SEO content
-- ✅ Score articles for originality
-- ✅ Browser extension with warnings
-- ✅ Pattern analysis across content
-
-**Track G (Marketplaces)**: 75% coverage
-- ✅ Cluster similar reviews
-- ✅ Detect AI-generated feedback
-- ✅ Score review authenticity
-- ✅ Browser extension for filtering
-
 **Bonus Achieved**: Cross-Track Scanner (+3 points)
 
 ## 📝 License
@@ -340,6 +337,3 @@ Track E + G - Slop Scan Hackathon 2026
 
 Built for the Slop Scan Hackathon 2026 to combat low-information-density content on the web.
 
----
-
-**Note**: This is an MVP implementation focusing on core functionality. The C++ WASM engine exists but is not currently used - the TypeScript implementation in `analyzer.ts` is the active detection engine.
