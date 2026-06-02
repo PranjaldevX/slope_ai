@@ -6,8 +6,8 @@ Thank you for your interest in contributing! This document provides guidelines f
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/yourusername/information-density-filter.git
-   cd information-density-filter
+   git clone https://github.com/PranjaldevX/slope_ai.git
+   cd slop_ai
    ```
 
 2. **Install dependencies**
