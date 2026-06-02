@@ -1,8 +1,3 @@
-/**
- * Information Density Filter — Detection Engine v3 (MVP)
- * Measures information density to identify low-value content.
- * Focus: Compression Ratio, Information Gain, Filler Words
- */
 
 // Stop words for concept extraction
 const STOP_WORDS = new Set([
